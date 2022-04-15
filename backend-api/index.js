@@ -15,7 +15,7 @@ const user = require("./routes/user")
 const connectToDB = async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://freelancer:QCxAxVnGmpMFilkI@cluster0.3jnuk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+      process.env.MONGO_DB_URL,
       { useNewUrlParser: true, useUnifiedTopology: true }
     );
   } catch (error) {
