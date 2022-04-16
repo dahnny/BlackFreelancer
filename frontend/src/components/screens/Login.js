@@ -5,7 +5,7 @@ import GoogleLogin from "react-google-login";
 
 const Login = ({login}) => {
     useEffect(() => {
-        
+
     }, [])
     
   return (
@@ -18,8 +18,8 @@ const Login = ({login}) => {
         <h1 class="h3  mx-5 mb-3 fw-normal text-uppercase">Please sign in</h1>
         <GoogleLogin
           clientId={process.env.REACT_APP_CLIENT_ID}
-          onSuccess={login}
-          onFailure={login}
+          onSuccess={()=>login}
+          onFailure={()=>login}
           cookiePolicy={"single_host_origin"}
         >
           <span>Sign Up with Google</span>
