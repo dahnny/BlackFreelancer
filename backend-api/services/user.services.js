@@ -1,20 +1,34 @@
 const User = require("../schemas/user");
 
-const addGoogleUser = ({ email, firstName, lastName, profilePhoto }) => {
+const login = async (request) => {
+  const { username, firstName, lastName, profilePhoto, password } =
+    request.body;
+  const currentUser = await User.findOne({ username });
+  if (!currentUser) {
+    const user = new User({
+      username,
+      firstName,
+      lastName,
+      profilePhoto,
+    });
+    await User.register(user, password);
+    return request;
+  }
   const user = new User({
-    email,
-    firstName,
-    lastName,
-    profilePhoto,
+    username,
+    password,
   });
-  return user.save();
+  request.login(user, (err) => {
+    if (err) throw new Error(err);
+    return user;
+  });
 };
 
-const getUsers = () => {
+const get = () => {
   return User.find({});
 };
 
-const getUserById = async ({ id }) => {
+const getById = async ({ id }) => {
   try {
     const user = await User.findOne({ _id: id });
     if (!user) throw new Error("User not found");
@@ -24,7 +38,7 @@ const getUserById = async ({ id }) => {
     throw new Error(error.message);
   }
 };
-const getUserByEmail = async ({ email }) => {
+const getByEmail = async ({ email }) => {
   try {
     const user = await User.findOne({ email });
     if (!user) throw new Error("User not found");
@@ -35,7 +49,7 @@ const getUserByEmail = async ({ email }) => {
   }
 };
 
-const updateUser = async (payload, userId) => {
+const update = async (payload, userId) => {
   try {
     const { description, profilePhoto, firstName, lastName } = payload;
     const user = await User.updateOne(
@@ -50,9 +64,9 @@ const updateUser = async (payload, userId) => {
   }
 };
 module.exports = {
-  addGoogleUser,
-  getUserByEmail,
-  getUserById,
-  getUsers,
-  updateUser,
+  login,
+  getByEmail,
+  getById,
+  get,
+  update,
 };
