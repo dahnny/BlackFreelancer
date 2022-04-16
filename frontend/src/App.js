@@ -23,6 +23,7 @@ function App() {
   }, []);
 
   const login = async ({ profileObj }) => {
+    console.log(profileObj)
     setIsLoading(true);
     try {
       const response = await axios.post(`${baseUrl}/auth/login`, {
