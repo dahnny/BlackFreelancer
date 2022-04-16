@@ -22,16 +22,22 @@ function App() {
     setIsLoading(false);
   }, []);
 
-  const login = async ({ profileObj }) => {
-    console.log(profileObj)
-    setIsLoading(true);
+  const login = async (data) => {
+    const {
+      firstName,
+      lastName,
+      email: username,
+      image: profilePhoto,
+      password,
+    } = data;
+
     try {
       const response = await axios.post(`${baseUrl}/auth/login`, {
-        password: profileObj.googleId,
-        username: profileObj.email,
-        firstName: profileObj.givenName,
-        lastName: profileObj.familyName,
-        profilePhoto: profileObj.imageUrl,
+        password,
+        username,
+        firstName,
+        lastName,
+        profilePhoto,
       });
       const { data } = response;
       localStorage.setItem("user", JSON.stringify(data));
