@@ -1,7 +1,15 @@
 const Loader = () => (
-  <div className="d-flex justify-content-center">
-    <div animation="border" role="status" className="opacity-25 spinner-border">
-      <span className="visually-hidden">Loading...</span>
+  <div
+    style={{ height: "100vh" }}
+    className="d-flex flex-column align-items-center justify-content-center"
+  >
+    <div className="d-flex">
+      <div class="spinner-grow text-danger" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <div class="spinner-grow text-warning" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
 );

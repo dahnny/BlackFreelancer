@@ -1,20 +1,29 @@
+import { useEffect } from "react";
 import "../css/Login.css";
-import { baseUrl } from "../../utils/constants";
-import { Link } from "react-router-dom";
+import GoogleLogin from "react-google-login";
 
-const Login = (props) => {
+
+const Login = ({login}) => {
+    useEffect(() => {
+        
+    }, [])
+    
   return (
     <>
-      <main className="container form-signin d-flex flex-column justify-content-center">
+      <main className="containers form-signin d-flex flex-column justify-content-center">
         <img
           src="https://www.freepnglogos.com/uploads/company-logo-png/company-logo-transparent-png-19.png"
           alt=""
         />
-        <h1 className="h3  mx-5 mb-3 fw-normal text-uppercase">Please sign in</h1>
-
-        <a href={`${baseUrl}/auth/login`} className="w-100 btn btn-lg btn-outline-primary" type="submit">
-          <i class="bi bi-google"></i> Sign in
-        </a>
+        <h1 class="h3  mx-5 mb-3 fw-normal text-uppercase">Please sign in</h1>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_CLIENT_ID}
+          onSuccess={login}
+          onFailure={login}
+          cookiePolicy={"single_host_origin"}
+        >
+          <span>Sign Up with Google</span>
+        </GoogleLogin>
       </main>
     </>
   );

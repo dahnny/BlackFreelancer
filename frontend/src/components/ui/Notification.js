@@ -8,9 +8,7 @@ const Notification = () => (
     autoClose={5000}
     hideProgressBar
     newestOnTop
-    closeOnClick
     rtl={false}
-    pauseOnFocusLoss
     draggable={false}
     pauseOnHover
   />
