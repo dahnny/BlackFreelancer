@@ -1,27 +1,31 @@
 const User = require("../schemas/user");
 
 const login = async (request) => {
-  const { username, firstName, lastName, profilePhoto, password } =
-    request.body;
-  const currentUser = await User.findOne({ username });
-  if (!currentUser) {
+  try {
+    const { username, firstName, lastName, profilePhoto, password } =
+      request.body;
+    const currentUser = await User.findOne({ username });
+    if (!currentUser) {
+      const user = new User({
+        username,
+        firstName,
+        lastName,
+        profilePhoto,
+      });
+      await User.register(user, password);
+      return request;
+    }
     const user = new User({
       username,
-      firstName,
-      lastName,
-      profilePhoto,
+      password,
     });
-    await User.register(user, password);
-    return request;
+    request.login(user, (err) => {
+      if (err) throw new Error(err);
+      return user;
+    });
+  } catch (error) {
+    throw new Error(error);
   }
-  const user = new User({
-    username,
-    password,
-  });
-  request.login(user, (err) => {
-    if (err) throw new Error(err);
-    return user;
-  });
 };
 
 const get = () => {
@@ -63,10 +67,17 @@ const update = async (payload, userId) => {
     throw new Error(error.message);
   }
 };
+
+const uploadImage = async (photo, username) => {
+  const user = await User.updateOne({ username }, { $set: { profilePhoto: photo } });
+  return user;
+
+};
 module.exports = {
   login,
   getByEmail,
   getById,
   get,
   update,
+  uploadImage,
 };

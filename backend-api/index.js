@@ -4,7 +4,8 @@ const bodyParser = require("body-parser");
 const passport = require("passport");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const morgan = require("morgan")
+const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 
@@ -46,6 +47,8 @@ app.use((req, res, next)=>{
     next()
 })
 
+app.use(cors())
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -59,14 +62,14 @@ app.use((req, res, next) => {
   next(error);
 });
 
-app.use((error, req, res, next) => {
-    res.status(error.status || 500);
-    res.json({
-      error: {
-        message: error.message,
-      },
-    });
-});
+// app.use((error, req, res, next) => {
+//     res.status(error.status || 500);
+//     res.json({
+//       error: {
+//         message: error,
+//       },
+//     });
+// });
 
 const port = process.env.PORT || 3264;
 app.listen(port, async()=> {
