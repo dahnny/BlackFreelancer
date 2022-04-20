@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Logo from "../../assets/logo.png"
 const Navbar = (props) => {
   return (
     <>
@@ -21,7 +22,7 @@ const Navbar = (props) => {
         <div className="navbar navbar-light bg-light shadow-sm">
           <div className="container">
             <Link to="#" className="navbar-brand d-flex align-items-center">
-              <img width={80} height={60} src="https://www.freepnglogos.com/uploads/company-logo-png/company-logo-transparent-png-19.png" alt="" />
+              <img width={80} height={60} src={Logo} alt="" />
               <strong>Create Yourself</strong>
             </Link>
             <button

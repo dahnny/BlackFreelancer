@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/Login.css";
+import Logo from "../../assets/logo.png"
 
 const Login = ({ login }) => {
   const [firstName, setFirstName] = useState("");
@@ -23,7 +24,7 @@ const Login = ({ login }) => {
       <main className="containers form-signin d-flex flex-column justify-content-center">
         <img
           className="mb-4"
-          src="https://www.freepnglogos.com/uploads/company-logo-png/company-logo-transparent-png-19.png"
+          src={Logo}
           alt=""
         />
         <h1 class="h3 mx-5 mb-3 fw-normal text-uppercase">Please sign in</h1>
