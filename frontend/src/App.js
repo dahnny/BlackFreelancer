@@ -30,7 +30,7 @@ function App() {
       image: profilePhoto,
       password,
     } = data;
-
+    setIsLoading(true);
     try {
       const response = await axios.post(`${baseUrl}/auth/login`, {
         password,
